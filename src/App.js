@@ -2,9 +2,8 @@
 /** @jsx jsx */
 import { jsx, css, Global } from '@emotion/react'
 import Wave from 'react-wavify'
-import { useState } from 'react'
 
-var sbAnimate, top=0, sailboat=null;
+var top=0, sailboat=null;
 
 function fetchFish() {
 
@@ -51,23 +50,6 @@ function init(){
         });
 
    }, 250);
-
-   /*window.setInterval(function() {
-        var fish = document.createElement('img'); 
-        fish.src = '/fish-red.png';
-        fish.style.position = "fixed";
-        fish.style.height = "100px";
-        fish.style.left ="-110px";
-        var top = Math.floor(Math.random() * (950 - 350 + 1)) + 350;
-        fish.style.top = top + "px";
-        fish.style['transform'] = "scaleX(-1)";
-        document.getElementById('ocean').appendChild(fish); 
-
-        moveRight({
-            fish,
-            left: 0
-        });
-    }, 500);*/
 }
 
 function moveUp() {
@@ -76,7 +58,7 @@ function moveUp() {
     sailboat.style.top = (top + 40) + 'px';
     sailboat.style.visibility='visible';
 
-    sbAnimate = setTimeout(function(){moveDown();},1500);
+    setTimeout(function(){moveDown();},1500);
 }
 
 function moveDown() {
@@ -85,20 +67,7 @@ function moveDown() {
     sailboat.style.top = (top - 40) + 'px';
     sailboat.style.visibility='visible';
 
-    sbAnimate = setTimeout(function(){moveUp();},1500);
-}
-
-function moveRight(state){
-    state.left = parseInt(state.fish.style.left, 10);
-    
-    if (2000 >= state.left) {
-        state.fish.style.left = (state.left + 5) + 'px';
-        state.fish.style.visibility='visible';
-
-        setTimeout(function(){moveRight(state);},50);
-    } else {
-        kill(state.fish);
-    }
+    setTimeout(function(){moveUp();},1500);
 }
 
 function moveLeft(state) {
@@ -126,8 +95,6 @@ const App = () => {
   const brown = alpha => `rgba(191, 136, 85, ${alpha})`
   const splash = brown(1)
   const hover = brown(0.9)
-  const [isPaused, setPause] = useState(false)
-  const togglePaused = () => setPause(!isPaused)
 
   const global = css`
     @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
@@ -173,10 +140,6 @@ const App = () => {
     }
   `
 
-  const pause = css`
-    display: flex;
-    justify-content: center;
-  `
   const margin = `
     margin-top: 3.5em;
     margin-bottom: 1.6em;
@@ -208,8 +171,8 @@ const App = () => {
             <p css={text}>istio-demo</p>
           </a>
         </div>
-       <img id="sailboat" src="/sailboat.png" style={{height:"200px", position: "fixed", left:'800px', top: '182px', zIndex:100}} />
-        <Wave paused={isPaused}
+       <img id="sailboat" alt="Istio Sailboat" src="/sailboat.png" style={{height:"200px", position: "fixed", left:'800px', top: '182px', zIndex:100}} />
+        <Wave
               fill={water}
               options={{
                 height: 40,
