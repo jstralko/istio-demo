@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fish-blue
+spec:
+  selector:
+    matchLabels:
+      app: fish
+      version: 1.0.0
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: fish
+        version: 1.0.0
+    spec:
+      containers:
+      - name: fish
+        image: gerbstralko/fish-golang:1.0.0
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fish
+spec:
+  selector:
+    app: fish
+  ports:
+    - name: http
+      port: 8080
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fish-red
+spec:
+  selector:
+    matchLabels:
+      app: fish
+      version: 2.0.0
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: fish
+        version: 2.0.0
+    spec:
+      containers:
+      - name: fish
+        image: gerbstralko/fish-golang:2.0.0
+        imagePullPolicy: Always

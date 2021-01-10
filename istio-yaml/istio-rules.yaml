@@ -1,0 +1,55 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: ingress-gateway-configuration
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: fish-routing
+  namespace: default
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - ingress-gateway-configuration
+  http:
+    - route:
+      - destination:
+          host: fish
+          subset: blue
+        weight: 50
+      - destination:
+          host: fish
+          subset: red
+        weight: 50
+      fault:
+        abort:
+          httpStatus: 503
+          percentage:
+            value: 15
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: fish-rules
+  namespace: default
+spec:
+  host: fish
+  subsets:
+    - labels:
+        version: 1.0.0
+      name: blue
+    - labels:
+        version: 2.0.0
+      name: red
