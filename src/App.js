@@ -38,7 +38,9 @@ function init(){
             fish.style.position = "fixed";
             fish.style.height = "100px";
             fish.style.right ="-85px";
-            var top = 350
+            //flip the fish upside down to mimic a dead fish. :)
+            fish.style.transform = "rotate(180deg) scaleX(-1)";
+            var top = 330
             fish.style.top = top + "px";
             document.getElementById('ocean').appendChild(fish); 
 
