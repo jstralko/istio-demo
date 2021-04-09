@@ -7,7 +7,7 @@ var top=0, sailboat=null;
 
 function fetchFish() {
 
-    return fetch('http://localhost:18080/fish')
+    return fetch('http://52.156.130.61/fish')
         .then(response => response.json())
 }
 

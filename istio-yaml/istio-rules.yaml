@@ -28,16 +28,16 @@ spec:
       - destination:
           host: fish
           subset: blue
-        weight: 100
+        weight: 50
       - destination:
           host: fish
           subset: red
-        weight: 0
+        weight: 50
       fault:
         abort:
           httpStatus: 503
           percentage:
-            value: 0
+            value: 25
 ---
 kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
