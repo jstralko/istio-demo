@@ -1,0 +1,66 @@
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: ocean-routing
+  namespace: default
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - appgw-gateway
+  http:
+    - match:
+      - uri:
+          prefix: /ocean
+      - uri:
+          prefix: /static
+      - uri:
+          prefix: /fish-
+      - uri:
+          prefix: /sailboat
+      route:
+        - destination:
+            host: ocean
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: ocean-rules
+  namespace: default
+spec:
+  host: ocean
+  subsets:
+  - name: ocean
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocean
+spec:
+  selector:
+    app: ocean
+  ports:
+    - name: http
+      port: 3000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocean
+spec:
+  selector:
+    matchLabels:
+      app: ocean
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ocean
+    spec:
+      containers:
+      - name: ocean
+        image: gerbstralko/ocean:1.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
