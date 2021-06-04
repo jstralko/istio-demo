@@ -27,6 +27,22 @@ func main() {
 			return
 		}
 
+		tracingHeaders := []string{
+			"x-request-id",
+			"x-b3-traceid",
+			"x-b3-spanid",
+			"x-b3-sampled",
+			"x-b3-parentspanid",
+			"x-b3-flags",
+			"x-ot-span-context",
+		}
+
+		for _, key := range tracingHeaders {
+			if val := r.Header.Get(key); val != "" {
+				w.Header().Set(key, val)
+			}
+		}
+
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(js)
 	})
