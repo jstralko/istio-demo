@@ -7,7 +7,7 @@ var top=0, sailboat=null;
 
 function fetchFish() {
 
-    return fetch('http://52.156.130.61/fish')
+    return fetch('https://fish.dev.sc.emmi.wkce.app/fish')
         .then(response => response.json())
 }
 
@@ -169,11 +169,9 @@ const App = () => {
       <Global styles={global} />
       <div id="ocean" css={wave}>
         <div css={center}>
-          <a href="https://istio.io/">
-            <p css={text}>istio-demo</p>
-          </a>
+         <p css={text}>service-mesh-demo</p>
         </div>
-       <img id="sailboat" alt="Istio Sailboat" src="/sailboat.png" style={{height:"200px", position: "fixed", left:'800px', top: '182px', zIndex:100}} />
+       <img id="sailboat" alt="Sailboat" src="/sailboat.png" style={{height:"200px", position: "fixed", left:'800px', top: '182px', zIndex:100}} />
         <Wave
               fill={water}
               options={{
