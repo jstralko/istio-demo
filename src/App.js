@@ -7,7 +7,7 @@ var top=0, sailboat=null;
 
 function fetchFish() {
 
-    return fetch('https://fish.dev.sc.emmi.wkce.app/fish')
+    return fetch('https://my.tld/fish')
         .then(response => response.json())
 }
 
