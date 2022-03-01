@@ -7,7 +7,7 @@ var top=0, sailboat=null;
 
 function fetchFish() {
 
-    return fetch('https://my.tld/fish')
+    return fetch('https://__BACKEND_INGRESS__/fish')
         .then(response => response.json())
 }
 
@@ -18,14 +18,14 @@ function init(){
    window.setInterval(function() {
 
         fetchFish().then(zygote => {
-            var fish = document.createElement('img'); 
+            var fish = document.createElement('img');
             fish.src = zygote.Type
             fish.style.position = "fixed";
             fish.style.height = "100px";
             fish.style.right ="-85px";
             var top = zygote.Y;
             fish.style.top = top + "px";
-            document.getElementById('ocean').appendChild(fish); 
+            document.getElementById('ocean').appendChild(fish);
 
             moveLeft({
                 fish,
@@ -33,7 +33,7 @@ function init(){
             });
 
         }).catch(() => {
-            var fish = document.createElement('img'); 
+            var fish = document.createElement('img');
             fish.src = "/fish-dead.png"
             fish.style.position = "fixed";
             fish.style.height = "100px";
@@ -42,7 +42,7 @@ function init(){
             fish.style.transform = "rotate(180deg) scaleX(-1)";
             var top = 330
             fish.style.top = top + "px";
-            document.getElementById('ocean').appendChild(fish); 
+            document.getElementById('ocean').appendChild(fish);
 
             moveLeft({
                 fish,
